@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-  return "hello : tesrt program"
+  return "hello : test program"
 
 
 
