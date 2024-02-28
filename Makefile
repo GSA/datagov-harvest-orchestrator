@@ -17,10 +17,13 @@ clean:
 up:
 	docker-compose up $(ARGS)
 
+
 # ###############################################
 # Test commands
 # ###############################################
 
-test: build
-	# docker build -t ghcr.io/gsa/catalog.data.gov:latest ckan/
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml up --abort-on-container-exit test
+db-up:
+	docker-compose up -d db
+
+test: db-up
+	poetry run pytest
