@@ -60,21 +60,6 @@ def get_record():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/harvests', methods=['GET'])
-def get_record_id():
-    record_id = request.args.get('id')
-    try:
-        print("record_id is",record_id)
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM harvest_source WHERE id = %s", (id,))
-        record = cursor.fetchone()
-        cursor.close()
-        if record:
-            return jsonify({'record': record})
-        else:
-            return jsonify({'error': 'Record not found'}), 404
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
