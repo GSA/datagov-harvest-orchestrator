@@ -46,21 +46,15 @@ This project uses [Poetry](https://python-poetry.org/) for dependency management
 
 ### Database Service Setup
 
-For each space in Cloud.gov:
+### Harvesting Logic Database
 
-1. Log in to your Cloud.gov account and target the appropriate org and space:
+A database service is required for use on cloud.gov.
 
-   ```bash
-   cf target -o <org-name> -s <space-name>
-   ```
+In a given Cloud Foundry `space`, a db can be created with `cf create-service <service offering> <plan> <service instance>`. In dev, for example, the db was created with `cf create-service aws-rds micro-psql harvesting-logic-db`. Creating databases for the other spaces should follow the same pattern, though the size may need to be adjusted (see available AWS RDS service offerings with `cf marketplace -e aws-rds`).
 
-2. Create a PostgreSQL service instance:
+Any created service needs to be bound to an app with `cf bind-service <app> <service>`. With the above example, the db can be bound with `cf bind-service harvesting-logic harvesting-logic-db`.
 
-   ```bash
-   cf create-service aws-rds <database_type> <service-instance-name>
-   OR 
-   run create_cloudgov_service.sh
-   ```
+Accessing the service can be done with service keys. They can be created with `cf create-service-keys`, listed with `cf service-keys`, and shown with `cf service-key <service-key-name>`.
 
 ### Deploying the Flask Application
 
