@@ -46,23 +46,31 @@ This project uses [Poetry](https://python-poetry.org/) for dependency management
 
 ### Database Service Setup
 
-### Harvesting Logic Database
-
 A database service is required for use on cloud.gov.
 
-In a given Cloud Foundry `space`, a db can be created with `cf create-service <service offering> <plan> <service instance>`. In dev, for example, the db was created with `cf create-service aws-rds micro-psql harvesting-logic-db`. Creating databases for the other spaces should follow the same pattern, though the size may need to be adjusted (see available AWS RDS service offerings with `cf marketplace -e aws-rds`).
+In a given Cloud Foundry `space`, a db can be created with 
+`cf create-service <service offering> <plan> <service instance>`. 
 
-Any created service needs to be bound to an app with `cf bind-service <app> <service>`. With the above example, the db can be bound with `cf bind-service harvesting-logic harvesting-logic-db`.
+In dev, for example, the db was created with 
+`cf create-service aws-rds micro-psql harvesting-logic-db`. 
 
-Accessing the service can be done with service keys. They can be created with `cf create-service-keys`, listed with `cf service-keys`, and shown with `cf service-key <service-key-name>`.
+Creating databases for the other spaces should follow the same pattern, though the size may need to be adjusted (see available AWS RDS service offerings with `cf marketplace -e aws-rds`).
+
+Any created service needs to be bound to an app with `cf bind-service <app> <service>`. With the above example, the db can be bound with 
+`cf bind-service harvesting-logic harvesting-logic-db`.
+
+Accessing the service can be done with service keys. They can be created with `cf create-service-keys`, listed with `cf service-keys`, and shown with 
+
+`cf service-key <service-key-name>`.
 
 ### Deploying the Flask Application
 
 1. Ensure you have a `manifest.yml` and `vars.yml` file configured for your Flask application. The `vars.yml` file should include variables such as `FLASK_APP` and database service bindings.
 
-2. Deploy the application using Cloud Foundry's `cf push` command with your variable file:
+2. Deploy the application using Cloud Foundry's `cf push` command with the variable file:
 
    ```bash
+   poetry export -f requirements.txt --output requirements.txt --without-hashes
    cf push --vars-file vars.yml
    ```
 

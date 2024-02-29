@@ -1,0 +1,9 @@
+# this is just for run cf push to deploy app to cloud.gov
+# poetry export -f requirements.txt --output requirements.txt
+# to-do: will include this step in github actions.
+
+
+flask
+sqlalchemy
+psycopg2-binary
+python-dotenv

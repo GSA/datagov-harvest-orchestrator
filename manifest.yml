@@ -9,5 +9,5 @@ applications:
       - ((database_name))
     instances: 1
     env:
-      FLASK_APP: app.py
       DATABASE_NAME: ((database_name))
+    command: python app.py
