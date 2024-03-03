@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest orchestrartor</title>
+</head>
+<body>
+    <h2>Insert Data</h2>
+    <form id="postDataForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="notification_emails">notification_emails:</label>
+        <input type="notification_emails" id="notification_emails" name="notification_emails" required><br><br>
+        <label for="orgnation_name">orgnation_name:</label>
+        <input type="orgnation_name" id="orgnation_name" name="orgnation_name" required><br><br>
+        <label for="frequency">frequency:</label>
+        <input type="frequency" id="frequency" name="frequency" required><br><br>
+        <label for="url">url:</label>
+        <input type="url" id="url" name="url" required><br><br>
+        <label for="schema_type">schema_type:</label>
+        <input type="schema_type" id="schema_type" name="schema_type" required><br><br>
+        <label for="source_type">source_type:</label>
+        <input type="source_type" id="source_type" name="source_type" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="message"></div>
+    <hr>
+
+    <script>
+        document.getElementById("postDataForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("message").innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+                if (data.success) {
+                    fetch('/harvests')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("recordData").innerText = JSON.stringify(data.record);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                }
+                if (data.success) {
+                    fetch('/harvests/id')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("recordDataId").innerText = JSON.stringify(data.record);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                }
+    </script>
+</body>
+</html>
