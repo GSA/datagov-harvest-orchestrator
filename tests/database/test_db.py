@@ -153,7 +153,7 @@ def test_update_source(db_interface):
     )
 
     new_source = db_interface.update_harvest_source(
-        old_source.harvest_source_id, {"organization_name": "New Org"}
+        old_source.id, {"organization_name": "New Org"}
     )
 
     assert new_source.organization_name == "New Org"

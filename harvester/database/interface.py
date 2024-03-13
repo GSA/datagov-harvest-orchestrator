@@ -76,9 +76,16 @@ class HarvesterDBInterface:
         return HarvesterDBInterface._to_dict(result)
 
     def update_harvest_source(self, source_id, updates):
-        source = HarvestSource.query.get(source_id)
+        source = self.db.query(HarvestSource).get(source_id)
+        # TODO check/sanitize/error handle ^^
 
-        return updated_source
+        for update in updates:
+            setattr(source, update, updates[update])
+
+        self.db.flush()
+        self.db.commit()
+
+        return source
 
     def close(self):
         if hasattr(self.db, "remove"):

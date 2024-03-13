@@ -96,12 +96,11 @@ def get_harvest_error():
         return result
 
 
-@app.route("/harvests/<source_id>", methods=["PUT"])
+@app.route("/harvests/<string:source_id>", methods=["PUT"])
 def update_harvest_source():
     source_id = request.args.get("source_id", None)
     if source_id is None:
         return "Please provide a source_id"
-    # TODO: sanitize
     else:
         result = db.update_harvest_source(source_id, request.json)
         return result
